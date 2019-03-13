@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+xhost local:
+[ ! -d $HOME/irpf-2017-shared ] && mkdir $HOME/irpf-2017-shared
+if [ "$(docker ps -a | grep irpf-2019 | wc -l)" == "1" ]; then
+    docker start irpf-2019
+else
+    docker build -f Dockerfile-2019 -t eszanon/dockerized-irpf-2019 .
+    docker run -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/:rw \
+        -v /dev/snd:/dev/snd \
+        -v $HOME/irpf-2017-shared:/root/shared:rw \
+        --name irpf-2019 \
+        eszanon/dockerized-irpf-2019 /bin/irpf-2019
+fi

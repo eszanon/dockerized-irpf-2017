@@ -1,0 +1,17 @@
+FROM ubuntu:16.04
+RUN touch /bin/irpf-2019; \ 
+    echo "#!/usr/bin/env bash" > /bin/irpf-2019; \
+    echo "[ ! -d /usr/local/IRPF2019/ ] && echo ERRO && exit 2" >> /bin/irpf-2019; \
+    echo "/usr/bin/java -Xms128M -Xmx512M -jar /usr/local/IRPF2019/irpf.jar" >> /bin/irpf-2019; \
+    chmod u+x /bin/irpf-2019; \
+    apt-get update; \
+    apt-get install -y openjdk-8-jdk; \
+    apt-get install -y wget zip; \
+    wget http://downloadirpf.receita.fazenda.gov.br/irpf/2019/irpf/arquivos/IRPF2019-1.1.zip; \
+    cd /usr/local/; \
+    unzip /IRPF2019-1.1.zip; \
+    rm /IRPF2019-1.1.zip; \
+    mkdir /root/shared; \
+    apt-get purge; \
+    apt-get clean
+
