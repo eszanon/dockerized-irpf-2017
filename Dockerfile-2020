@@ -7,10 +7,10 @@ RUN touch /bin/irpf-2020; \
     apt-get update; \
     apt-get install -y openjdk-8-jdk; \
     apt-get install -y wget zip; \
-    wget http://downloadirpf.receita.fazenda.gov.br/irpf/2020/irpf/arquivos/IRPF2020-1.9.zip; \
+    wget http://downloadirpf.receita.fazenda.gov.br/irpf/2020/irpf/arquivos/IRPF2020-2.1.zip; \
     cd /usr/local/; \
-    unzip /IRPF2020-1.9.zip; \
-    rm /IRPF2020-1.9.zip; \
+    unzip /IRPF2020-2.1.zip; \
+    rm /IRPF2020-2.1.zip; \
     mkdir /root/shared; \
     apt-get purge; \
     apt-get clean
