@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+xhost +
+[ ! -d $HOME/irpf-2017-shared ] && mkdir $HOME/irpf-2017-shared
+if [ "$(docker ps -a | grep irpf-2021 | wc -l)" == "1" ]; then
+    docker start irpf-2021
+else
+    docker build -f Dockerfile-2021 -t eszanon/dockerized-irpf-2021 .
+    docker run -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix/:rw \
+        --net host \
+        -v /dev/snd:/dev/snd \
+        -v $HOME/irpf-2017-shared:/root/shared:rw \
+        --name irpf-2021 \
+        eszanon/dockerized-irpf-2021 /bin/irpf-2021
+fi

@@ -1,0 +1,16 @@
+FROM ubuntu:20.04
+RUN touch /bin/irpf-2021; \
+    echo "#!/usr/bin/env bash" > /bin/irpf-2021; \
+    echo "[ ! -d /IRPF2021/ ] && echo ERRO && exit 2" >> /bin/irpf-2021; \
+    echo "/usr/bin/java -Xms128M -Xmx512M -jar /IRPF2021/irpf.jar" >> /bin/irpf-2021; \
+    chmod u+x /bin/irpf-2021; \
+    apt-get update; \
+    apt-get install -y openjdk-11-jdk; \
+    apt-get install -y wget zip; \
+    wget https://downloadirpf.receita.fazenda.gov.br/irpf/2021/irpf/arquivos/IRPF2021-1.6.zip \
+    cd /usr/local/; \
+    unzip /IRPF2021-1.6.zip; \
+    #rm /IRPF2021-1.6.zip; \
+    mkdir /root/shared; \
+    apt-get purge; \
+    apt-get clean
